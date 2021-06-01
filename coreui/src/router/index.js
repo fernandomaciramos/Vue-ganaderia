@@ -39,6 +39,7 @@ const BrandButtons = () => import('@/views/buttons/BrandButtons')
 
 // Views - Icons
 const CoreUIIcons = () => import('@/views/icons/CoreUIIcons')
+const Prueba = () => import('@/views/icons/Prueba')
 const Brands = () => import('@/views/icons/Brands')
 const Flags = () => import('@/views/icons/Flags')
 
@@ -57,6 +58,7 @@ const Register = () => import('@/views/pages/Register')
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 const EditUser = () => import('@/views/users/EditUser')
+const CreateUser = () => import('@/views/users/CreateUser') // creado como prueba 
 
 //Notes
 const Notes = () => import('@/views/notes/Notes')
@@ -323,6 +325,15 @@ function configRoutes () {
               component: EditUser,
               meta:{
                 requiresAdmin: true
+              }
+            },
+            {
+              path: 'create',
+              meta: { label: 'Create User' },
+              name: 'Create User',
+              component: CreateUser,
+              meta:{
+                requiresUser: true
               }
             },
           ]
@@ -746,6 +757,14 @@ function configRoutes () {
               path: 'coreui-icons',
               name: 'Icons library',
               component: CoreUIIcons,
+              meta:{
+                requiresUser: true
+              }
+            },
+            {
+              path: 'prueba',
+              name: 'Prueba',
+              component: Prueba,
               meta:{
                 requiresUser: true
               }

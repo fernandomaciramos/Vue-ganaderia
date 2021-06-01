@@ -3,10 +3,11 @@
     <CCol col="12" xl="8">
       <transition name="slide">
       <CCard>
-        <CCardHeader>
-            Users
-        </CCardHeader>
         <CCardBody>
+           <h4>
+              Gestión de Usuarios
+            </h4>
+              <CButton color="primary" @click="addUsuario()" class="mb-3">Añadir Usuario</CButton>
           <CAlert
             :show.sync="dismissCountDown"
             color="primary"
@@ -111,6 +112,9 @@ export default {
         console.log(error);
         self.$router.push({ path: '/login' });
       });
+    },
+     addUsuario(){
+      this.$router.push({path: 'users/create'}); // corregido antes ponia solo create
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
