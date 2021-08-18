@@ -7,7 +7,9 @@
            <h4>
               Gestión de Usuarios
             </h4>
-              <CButton color="primary" @click="addUsuario()" class="mb-3">Añadir Usuario</CButton>
+            <!-- //lo esta haciendo en user -->
+              <CButton color="primary" @click="createUser()" class="mb-3">Añadir Usuario</CButton>
+              <CButton color="primary" @click="createRole()" class="mb-3">Crear Role</CButton>
           <CAlert
             :show.sync="dismissCountDown"
             color="primary"
@@ -113,8 +115,11 @@ export default {
         self.$router.push({ path: '/login' });
       });
     },
-     addUsuario(){
-      this.$router.push({path: 'users/create'}); // corregido antes ponia solo create
+    createUser () {
+      this.$router.push({path: 'users/createuser'}); // corregido antes ponia solo create
+    },
+    createRole () {
+      this.$router.push({path: 'roles/create'});
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown

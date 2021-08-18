@@ -65,7 +65,7 @@ class Menus implements MenuInterface{
             $this->mb->addLink('Modals',     '/notifications/modals');
         $this->mb->endDropdown();
         $this->mb->addLink('Widgets', '/widgets', 'cui-calculator');
-        $this->mb->addTitle('Extras');
+        $this->mb->addTitle('Extrasprueba');
         $this->mb->beginDropdown('Pages', '/pages', 'cui-star');
             $this->mb->addLink('Login',         '/login');
             $this->mb->addLink('Register',      '/register');

@@ -145,10 +145,10 @@ class MenusTableSeeder extends Seeder
             $this->insertLink('admin', 'BREAD',    '/bread');
             $this->insertLink('admin', 'Email',    '/email');
         $this->endDropdown();
-        $this->insertTitle('user,admin', 'Theme');
+        $this->insertTitle('user,admin', 'Theme2');
         $this->insertLink('user,admin', 'Colors', '/colors', 'cil-drop');
         $this->insertLink('user,admin', 'Typography', '/typography', 'cil-pencil');
-        $this->insertTitle('user,admin', 'Components');
+        $this->insertTitle('user,admin', 'Components2');
         $this->beginDropdown('user,admin', 'Base', '/base', 'cil-puzzle');
             $this->insertLink('user,admin', 'Breadcrumb',    '/base/breadcrumb');
             $this->insertLink('user,admin', 'Cards',         '/base/cards');
@@ -185,7 +185,7 @@ class MenusTableSeeder extends Seeder
             $this->insertLink('user,admin', 'Modals',     '/notifications/modals');
         $this->endDropdown();
         $this->insertLink('user,admin', 'Widgets', '/widgets', 'cil-calculator');
-        $this->insertTitle('user,admin', 'Extras');
+         $this->insertTitle('user,admin', 'Extrasprueba');
         $this->beginDropdown('user,admin', 'Pages', '/pages', 'cil-star');
             $this->insertLink('user,admin', 'Login',         '/login');
             $this->insertLink('user,admin', 'Register',      '/register');

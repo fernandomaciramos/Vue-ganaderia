@@ -1,50 +1,89 @@
 <template>
-  <div>
-    <CCard>
-      <CCardHeader>
-        <CIcon name="cil-globe-alt"/> Flags esta todo correcto
-      </CCardHeader>
-      <CCardBody>
-        <CRow class="text-center">
-          <CCol class="mb-5" col="12">
-            <!-- For using the flags inline with text add the classes
-            <code>.flag-icon</code> and <code>.flag-icon-xx</code>
-            (where xx is the ISO 3166-1-alpha-2 code of a country) to an empty
-            span. If you want to have a squared version flag then add the class
-            flag-icon-squared as well. -->
-          </CCol>
-          <template v-for="(flag, flagName) in displayedFlags">
-            <CCol
-              class="mb-5"
-              col="3"
-              sm="2"
-              :key="flagName"
-            >
-              <CIcon :height="42" :content="flag"/>
-              <div>{{toKebabCase(flagName)}}</div>
-            </CCol>
-          </template>
-        </CRow>
-      </CCardBody>
-    </CCard>
+  <div class="d-flex align-items-center min-vh-10">
+    <CContainer fluid>
+      <CRow class="justify-content-left">
+        <CCol md="6">
+          <CCard class="mx-2 mb-0">
+            <CCardBody class="p-4">
+              <CForm @submit.prevent="register" method="POST">
+                <h1>Añadir Usuario</h1>
+                <p class="text-muted">Rellena los campos para añadir el usuario</p>
+                <CInput
+                  placeholder="Nombre"
+                  prependHtml="<i class='cui-user'></i>"
+                  autocomplete="username"
+                  v-model="name"
+                >
+                  <template #prepend-content><CIcon name="cil-user"/></template>
+                </CInput>
+                <CInput
+                  placeholder="Email"
+                  prepend="@"
+                  autocomplete="email"
+                  v-model="email"
+                />
+                <CInput
+                  placeholder="Password"
+                  type="password"
+                  prependHtml="<i class='cui-lock-locked'></i>"
+                  autocomplete="new-password"
+                  v-model="password"
+                >
+                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                </CInput>
+                <CInput
+                  placeholder="Repeat password"
+                  type="password"
+                  prependHtml="<i class='cui-lock-locked'></i>"
+                  autocomplete="new-password"
+                  class="mb-4"
+                  v-model="password_confirmation"
+                >
+                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                </CInput>
+                <CButton type="submit" color="success" block>Añadir Usuario</CButton>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </CContainer>
   </div>
 </template>
 
-
-<script>
-import { pruebaSet } from '@coreui/icons'
-export default {
-  name: 'Prueba',
-  pruebaSet,
-  computed: {
-    displayedFlags () {
-      return this.$options.pruebaSet
+  <script>
+    import axios from 'axios'
+    export default {
+      data() {
+        return {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
+        }
+      },    
+      methods: {
+        register() {
+          var self = this;
+          axios.post(  this.$apiAdress + '/api/register', {
+            name: self.name,
+            email: self.email,
+            password: self.password,
+            password_confirmation: self.password_confirmation
+          }).then(function (response) {
+            self.name = '';
+            self.email = '';
+            self.password = '';
+            self.password_confirmation = '';
+            console.log(response);
+            self.$router.push({ path: '/users' });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+  
+        }
+      }
     }
-  },
-  methods: {
-    toKebabCase (str) {
-      return str.replace(/([a-z])([A-Z0-9])/g, '$1-$2').toLowerCase()
-    }
-  }
-}
-</script>
+  
+  </script>

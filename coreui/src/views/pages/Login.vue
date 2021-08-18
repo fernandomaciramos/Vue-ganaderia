@@ -1,5 +1,6 @@
 <template>
   <CContainer class="d-flex content-center min-vh-100">
+    <h1 class="text-hide" style="background-image: url('C:\public\img\imagenes\ganaderia.jpg'); width: 50px; height: 50px;">Bootstrap</h1>
     <CRow>
       <CCol>
         <CCardGroup>
@@ -42,6 +43,11 @@
             class="text-center py-5 d-md-down-none"
             body-wrapper
           >
+          <CImg
+            src="https://imgur.com/eg5OqzX"
+            fluid
+            className="mb-2"
+          />
             <h2>Sign up</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             <CButton

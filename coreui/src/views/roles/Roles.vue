@@ -4,8 +4,8 @@
       <transition name="slide">
       <CCard>
         <CCardBody>
-            <h4>Roles</h4>
-            <CButton color="primary" @click="createRole()">Create Role</CButton>
+            <h4>Gestión de Roles</h4>
+            <CButton color="primary" @click="createRole()" class="mb-3">Crear Role</CButton>
             <CAlert
               :show.sync="dismissCountDown"
               color="primary"

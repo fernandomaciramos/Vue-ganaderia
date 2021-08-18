@@ -15,7 +15,7 @@
           </CAlert>
 
           <CInput label="Name" type="text" placeholder="Name" v-model="name"></CInput>
-
+         <CInput type="text" label="Email" placeholder="Email" v-model="email"></CInput>
           <CButton color="primary" @click="store()">Create</CButton>
           <CButton color="primary" @click="goBack">Back</CButton>
         </CCardBody>
@@ -44,8 +44,8 @@ export default {
     },
     store() {
         let self = this;
-        axios.post(  this.$apiAdress + '/api/menu/menu/store?token=' + localStorage.getItem("api_token"),
-          { 'name': self.name }
+        axios.post(  this.$apiAdress + '/api/users?token=' + localStorage.getItem("api_token"),
+          { name: self.name }
         )
         .then(function (response) {
             self.name = '';

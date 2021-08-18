@@ -58,8 +58,8 @@ const Register = () => import('@/views/pages/Register')
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 const EditUser = () => import('@/views/users/EditUser')
-const CreateUser = () => import('@/views/users/CreateUser') // creado como prueba 
-
+const CreateUser = () => import('@/views/users/CreateUser')
+// const PruebaUser = () => import('@/views/users/PruebaUser')
 //Notes
 const Notes = () => import('@/views/notes/Notes')
 const Note = () => import('@/views/notes/Note')
@@ -319,6 +319,15 @@ function configRoutes () {
               }
             },
             {
+              path: 'create',
+              meta: { label: 'Create User' },
+              name: 'Create User',
+              component: CreateUser,
+              meta:{
+                requiresAdmin: true
+              }
+            },
+            {
               path: ':id/edit',
               meta: { label: 'Edit User' },
               name: 'Edit User',
@@ -327,15 +336,7 @@ function configRoutes () {
                 requiresAdmin: true
               }
             },
-            {
-              path: 'create',
-              meta: { label: 'Create User' },
-              name: 'Create User',
-              component: CreateUser,
-              meta:{
-                requiresUser: true
-              }
-            },
+            
           ]
         },
         {
