@@ -1,81 +1,118 @@
 <template>
-  <CRow>
-    <CCol col="12" lg="6">
-      <CCard no-header>
-        <CCardBody>
-          <h3>
-            Create Usuario
-          </h3>
-          <CAlert
-            :show.sync="dismissCountDown"
-            color="primary"
-            fade
-          >
-            ({{dismissCountDown}}) {{ message }}
-          </CAlert>
-
-          <CInput label="Name" type="text" placeholder="Name" v-model="name"></CInput>
-         <CInput type="text" label="Email" placeholder="Email" v-model="email"></CInput>
-          <CButton color="primary" @click="store()">Create</CButton>
-          <CButton color="primary" @click="goBack">Back</CButton>
-        </CCardBody>
-      </CCard>
-    </CCol>
-  </CRow>
+  <div class="d-flex align-items-center min-vh-10">
+    <CContainer fluid>
+      <CRow class="justify-content-left">
+        <CCol md="6">
+          <CCard class="mx-2 mb-0">
+            <CCardBody class="p-4">
+              <CForm @submit.prevent="register" method="POST">
+                <h1>Añadir Usuario</h1>
+                <p class="text-muted">Rellena los campos para añadir el usuario</p>
+                <CInput
+                  placeholder="Nombre"
+                  prependHtml="<i class='cui-user'></i>"
+                  autocomplete="username"
+                  v-model="name"
+                  valid-feedback="Thank you :)"
+                  invalid-feedback="Campo vacío no válido"
+                  :is-valid="validatorvacio"
+                >
+                  <template #prepend-content><CIcon name="cil-user"/></template>
+                </CInput>
+                <CInput
+                  placeholder="Email"
+                  prepend="@"
+                  autocomplete="email"
+                  v-model="email"
+                  valid-feedback="Thank you :)"
+                  invalid-feedback="Introduce un e-mail"
+                  :is-valid="validateEmail"
+                />
+                <CInput
+                  placeholder="Password"
+                  type="password"
+                  prependHtml="<i class='cui-lock-locked'></i>"
+                  autocomplete="new-password"
+                  v-model="password"
+                  valid-feedback="Thank you :)"
+                  invalid-feedback="Introduce una contraseña correcta"
+                  :is-valid="validateContraseña"
+                >
+                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                </CInput>
+                <CInput
+                  placeholder="Repeat password"
+                  type="password"
+                  prependHtml="<i class='cui-lock-locked'></i>"
+                  autocomplete="new-password"
+                  class="mb-4"
+                  v-model="password_confirmation"
+                  valid-feedback="Thank you :)"
+                  invalid-feedback="Introduce una contraseña correcta"
+                  :is-valid="validateContraseña"
+                >
+                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                </CInput>
+                <CButton type="submit" color="success" block>Añadir Usuario</CButton>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </CContainer>
+  </div>
 </template>
 
-<script>
-import axios from 'axios'
-export default {
-  name: 'CreateUsuario',
-  data: () => {
-    return {
-        name: '',
-        message: '',
-        dismissSecs: 7,
-        dismissCountDown: 0,
-        showDismissibleAlert: false
-    }
-  },
-  methods: {
-    goBack() {
-      this.$router.go(-1)
-      // this.$router.replace({path: '/users'})
+  <script>
+    import axios from 'axios'
+    export default {
+      data() {
+        return {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
+        }
+      },    
+      methods: {
+        validatorvacio (val){
+      return val ? val.length >= 1: false
     },
-    store() {
-        let self = this;
-        axios.post(  this.$apiAdress + '/api/users?token=' + localStorage.getItem("api_token"),
-          { name: self.name }
-        )
-        .then(function (response) {
+    validateEmail(val) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val)) {
+          return true;
+      } else {
+          return false;
+      }
+    },
+    validateContraseña(val){
+      const containsUppercase = /[A-Z]/.test(val)
+      const containsLowercase = /[a-z]/.test(val)
+      const containsNumber = /[0-9]/.test(val)
+      const containsSpecial = /[#?!@$%^&*-]/.test(val)
+      return containsUppercase && containsLowercase && containsNumber && containsSpecial
+    },
+        register() {
+          var self = this;
+          axios.post(  this.$apiAdress + '/api/register', {
+            name: self.name,
+            email: self.email,
+            password: self.password,
+            password_confirmation: self.password_confirmation
+          }).then(function (response) {
             self.name = '';
-            self.message = 'Successfully created note.';
-            self.showAlert();
-        }).catch(function (error) {
-            if(error.response.data.message == 'The given data was invalid.'){
-              self.message = '';
-              for (let key in error.response.data.errors) {
-                if (error.response.data.errors.hasOwnProperty(key)) {
-                  self.message += error.response.data.errors[key][0] + '  ';
-                }
-              }
-              self.showAlert();
-            }else{
-              console.log(error);
-              self.$router.push({ path: 'login' }); 
-            }
-        });
-    },
-    countDownChanged (dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
-    showAlert () {
-      this.dismissCountDown = this.dismissSecs
-    },
-  },
-  mounted: function(){
-
-  }
-}
-
-</script>
+            self.email = '';
+            self.password = '';
+            self.password_confirmation = '';
+            console.log(response);
+            self.$router.push({ path: '/users' });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+  
+        }
+      }
+    }
+  
+  </script>

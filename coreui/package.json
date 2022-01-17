@@ -27,19 +27,25 @@
     "release": "npm-run-all clearCache lint build test:unit test:e2e"
   },
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^1.0.2",
     "@coreui/coreui": "~3.0.0",
     "@coreui/icons": "~1.0.1",
     "@coreui/utils": "~1.2.2",
     "@coreui/vue": "~3.0.0",
     "@coreui/vue-chartjs": "~1.0.3",
-    "vue": "~2.6.11",
-    "vue-router": "~3.1.5",
-    "vuex": "~3.1.2",
     "axios": "^0.19.0",
-    "cropperjs": "^1.5.6"
+    "cropperjs": "^1.5.6",
+    "qrcode.vue": "^3.3.3",
+    "qrcodejs2": "0.0.2",
+    "vue": "^2.6.14",
+    "vue-carousel": "^0.18.0",
+    "vue-qr": "^3.2.2",
+    "vue-router": "~3.1.5",
+    "vuex": "~3.1.2"
   },
   "devDependencies": {
     "@babel/core": "~7.8.4",
+    "@types/chenfengyuan__vue-qrcode": "^1.0.3",
     "@vue/cli-plugin-babel": "~4.2.2",
     "@vue/cli-plugin-e2e-nightwatch": "~4.2.2",
     "@vue/cli-plugin-eslint": "~4.2.2",
@@ -55,7 +61,7 @@
     "node-sass": "~4.14.1",
     "npm-run-all": "~4.1.5",
     "sass-loader": "~8.0.2",
-    "vue-template-compiler": "~2.6.11"
+    "vue-template-compiler": "^2.6.14"
   },
   "browserslist": [
     "> 1%",

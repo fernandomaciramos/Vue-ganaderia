@@ -11,7 +11,10 @@
       @click="$store.commit('toggleSidebarDesktop')"
     />
     <CHeaderBrand class="mx-auto d-lg-none" to="/">
-      <CIcon name="logo" height="48" alt="Logo"/>
+      <!-- <CIcon name="logo" height="48" alt="Logo"/> -->
+       <div id="app">
+        <img :src="image" alt="" class="center">
+      </div>
     </CHeaderBrand>
 
     <CMenu/>
@@ -46,9 +49,22 @@ import TheHeaderDropdownAccnt from './TheHeaderDropdownAccnt'
 
 export default {
   name: 'TheHeader',
+  data () {
+    return {
+      image: 'https://i.imgur.com/P9xuySo.jpg[/img]'
+    }
+  },
   components: {
     TheHeaderDropdownAccnt,
     CMenu
   }
 }
 </script>
+<style>
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+</style>

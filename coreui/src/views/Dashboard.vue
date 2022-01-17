@@ -1,12 +1,18 @@
 <template>
   <div>
     <WidgetsDropdown/>
-    <CCard>
-      <CCardBody>
-        <CRow>
+    <section class="container-fluid">
+  <CCard>
+    <CCardBody>
+      <CRow>
           <CCol sm="5">
-            <h4 id="traffic" class="card-title mb-0">Traffic</h4>
-            <div class="small text-muted">November 2018</div>
+            <h4 id="traffic" class="card-title mb-2">Bienvenidos a Jandavet</h4>
+            <div class="big text-muted">Clínica veterinaria que en verdad se preocupa por tu 🐕</div>
+            <p>
+					    Tenemos más de 10 años ofreciendo nuestros servicios a personas como tú, que necesitan la mejor atención para su mascota.	
+				    </p>
+
+            
           </CCol>
           <CCol sm="7" class="d-none d-md-block">
             <CButton color="primary" class="float-right">
@@ -27,62 +33,62 @@
           </CCol>
         </CRow>
         <MainChartExample style="height:300px;margin-top:40px;"/>
+	
+    </CCardBody>
+		</CCard>
+	</section>
+  
+	<!-- FIN SECCIÓN PRINCIPAL -->
+
+    <CCard>
+      <CCardHeader>
+          <CIcon name="cil-justify-center"/>
+          <strong> Bootstrap Carousel</strong>
+          <div class="card-header-actions">
+            <a 
+              href="https://coreui.io/vue/docs/components/carousel" 
+              class="card-header-action" 
+              rel="noreferrer noopener" 
+              target="_blank"
+            >
+              <small class="text-muted">docs</small>
+            </a>
+          </div>
+        </CCardHeader>
+      <CCardBody>
+        <CCarousel
+            interval ="5000"
+            arrows
+            animate
+            height="460px"
+          >
+            <CCarouselItem
+              captionHeader="First Slide"
+              image="https://picsum.photos/1024/480/?image=52"
+              height="500px"
+              captionText="Nulla vitae elit libero, a pharetra augue mollis interdum."
+            />
+             <CCarouselItem
+              captionHeader="Second Slide"
+              image="https://i.imgur.com/2Wyde04.jpg[/img]"
+              captionText="Nulla vitae elit libero, a pharetra augue mollis interdum."
+            />
+            <CCarouselItem
+              captionHeader="Blank page"
+              :image="{ placeholderColor: 'grey' }"
+              captionText="Nulla vitae elit libero, a pharetra augue mollis interdum."
+            />
+            <CCarouselItem
+            image="https://picsum.photos/1024/480/?image=54"
+            />
+          </CCarousel>
       </CCardBody>
       <CCardFooter>
-        <CRow class="text-center">
-          <CCol md sm="12" class="mb-sm-2 mb-0">
-            <div class="text-muted">Visits</div>
-            <strong>29.703 Users (40%)</strong>
-            <CProgress
-              class="progress-xs mt-2"
-              :precision="1"
-              color="success"
-              :value="40"
-            />
-          </CCol>
-          <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
-            <div class="text-muted">Unique</div>
-            <strong>24.093 Users (20%)</strong>
-            <CProgress
-              class="progress-xs mt-2"
-              :precision="1"
-              color="info"
-              :value="20"
-            />
-          </CCol>
-          <CCol md sm="12" class="mb-sm-2 mb-0">
-            <div class="text-muted">Pageviews</div>
-            <strong>78.706 Views (60%)</strong>
-            <CProgress
-              class="progress-xs mt-2"
-              :precision="1"
-              color="warning"
-              :value="60"
-            />
-          </CCol>
-          <CCol md sm="12" class="mb-sm-2 mb-0">
-            <div class="text-muted">New Users</div>
-            <strong>22.123 Users (80%)</strong>
-            <CProgress
-              class="progress-xs mt-2"
-              :precision="1"
-              color="danger"
-              :value="80"
-            />
-          </CCol>
-          <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
-            <div class="text-muted">Bounce Rate</div>
-            <strong>Average Rate (40.15%)</strong>
-            <CProgress
-              class="progress-xs mt-2"
-              :precision="1"
-              :value="40"
-            />
-          </CCol>
-        </CRow>
+          
       </CCardFooter>
     </CCard>
-    <WidgetsBrand/>
+    
+    
     <CRow>
       <CCol md="12">
         <CCard>
@@ -450,6 +456,8 @@
         </CCard>
       </CCol>
     </CRow>
+    <WidgetsBrand/> 
+    <!-- pone el tema de los paneles del facebook -->
   </div>
 </template>
 
@@ -457,16 +465,25 @@
 import MainChartExample from './charts/MainChartExample'
 import WidgetsDropdown from './widgets/WidgetsDropdown'
 import WidgetsBrand from './widgets/WidgetsBrand'
+import Vue from 'vue';
+import VueCarousel from 'vue-carousel';
+
+Vue.use(VueCarousel);
 
 export default {
   name: 'Dashboard',
   components: {
     MainChartExample,
     WidgetsDropdown,
-    WidgetsBrand
+    WidgetsBrand,
   },
   data () {
     return {
+      data: [
+        '<div class="example-slide">Slide 1</div>',
+        '<div class="example-slide">Slide 2</div>',
+        '<div class="example-slide">Slide 3</div>',
+      ],
       selected: 'Month',
       tableItems: [
         {
@@ -544,4 +561,6 @@ export default {
     }
   }
 }
+
 </script>
+

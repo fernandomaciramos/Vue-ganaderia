@@ -5,11 +5,10 @@
       <CCard>
         <CCardBody>
            <h4>
-              Gestión de Usuarios
+              Gestión de Ganaderia
             </h4>
             <!-- //lo esta haciendo en user -->
-              <CButton color="primary" @click="createUser()" class="mb-3">Añadir Usuario</CButton>
-              <CButton color="primary" @click="createRole()" class="mb-3">Crear Role</CButton>
+              <CButton color="primary" @click="createGanaderia()" class="mb-3">Añadir Ganaderia</CButton>
           <CAlert
             :show.sync="dismissCountDown"
             color="primary"
@@ -32,17 +31,17 @@
           </template>
           <template #show="{item}">
             <td>
-              <CButton color="primary" @click="showUser( item.id )">Show</CButton>
+              <CButton color="primary" @click="showGanaderia( item.id )">Mostrar</CButton>
             </td>
           </template>
           <template #edit="{item}">
             <td>
-              <CButton color="primary" @click="editUser( item.id )">Edit</CButton>
+              <CButton color="primary" @click="editGanaderia( item.id )">Editar</CButton>
             </td>
           </template>
           <template #delete="{item}">
             <td>
-              <CButton v-if="you!=item.id" color="danger" @click="deleteUser( item.id )">Delete</CButton>
+              <CButton v-if="you!=item.id" color="danger" @click="deleteGanaderia( item.id )">Eliminar</CButton>
             </td>
           </template>
         </CDataTable>
@@ -57,11 +56,11 @@
 import axios from 'axios'
 
 export default {
-  name: 'Users',
+  name: 'Ganaderia',
   data: () => {
     return {
       items: [],
-      fields: ['id', 'name', 'registered', 'roles', 'status', 'show', 'edit', 'delete'],
+      fields: ['id', 'name', 'registered', 'email', 'show', 'edit', 'delete'],
       currentPage: 1,
       perPage: 5,
       totalRows: 0,
@@ -86,62 +85,65 @@ export default {
           : status === 'Pending' ? 'warning'
             : status === 'Banned' ? 'danger' : 'primary'
     },
-    userLink (id) {
-      return `users/${id.toString()}`
+    ganaderiaLink (id) {
+      return `ganaderias/${id.toString()}`
     },
     editLink (id) {
-      return `users/${id.toString()}/edit`
+      console.log('estoy en editlink')
+      return `ganaderias/${id.toString()}/edit`
     },
-    showUser ( id ) {
-      const userLink = this.userLink( id );
-      this.$router.push({path: userLink});
+    //crear las vistas vue
+    showGanaderia ( id ) {
+      const ganaderiaLink = this.ganaderiaLink( id );
+      this.$router.push({path: ganaderiaLink});
     },
-    editUser ( id ) {
+    editGanaderia ( id ) {
+      console.log('estoy en editGanaderia')
       const editLink = this.editLink( id );
+      console.log(editLink);
       this.$router.push({path: editLink});
     },
-    deleteUser ( id ) {
+    deleteGanaderia ( id ) {
       let self = this;
-      let userId = id;
-      axios.post(  this.$apiAdress + '/api/users/' + id + '?token=' + localStorage.getItem("api_token"), {
+      let ganaderiaId = id;
+      axios.post(  this.$apiAdress + '/api/ganaderias/' + id + '?token=' + localStorage.getItem("api_token"), {
         _method: 'DELETE'
       })
       .then(function (response) {
           self.message = 'Successfully deleted user.';
           self.showAlert();
-          self.getUsers();
+          self.getGanaderias();
       }).catch(function (error) {
         console.log(error);
         self.$router.push({ path: '/login' });
       });
     },
-    createUser () {
-      this.$router.push({path: 'users/create'}); // corregido antes ponia solo create
+    createGanaderia () {
+      this.$router.push({path: 'ganaderias/create'}); // corregido antes ponia solo create
     },
-    createRole () {
-      this.$router.push({path: 'roles/create'});
-    },
+    
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
     },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
-    getUsers (){
+    getGanaderias (){
       let self = this;
-      console.log("estoy en el get users");
-      axios.get(  this.$apiAdress + '/api/users?token=' + localStorage.getItem("api_token"))
+      axios.get(  this.$apiAdress + '/api/ganaderias?token=' + localStorage.getItem("api_token"))
       .then(function (response) {
-        self.items = response.data.users;
+        self.items = response.data; //antes estaba data.ganaderia es solo data
+        console.log("estpy aqui");
         self.you = response.data.you;
       }).catch(function (error) {
         console.log(error);
+        console.log("estoy en el catch");
         // self.$router.push({ path: '/login' });
       });
     }
   },
   mounted: function(){
-    this.getUsers();
+    this.getGanaderias();
   }
 }
 </script>

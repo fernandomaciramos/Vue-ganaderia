@@ -1,5 +1,6 @@
 <?php
-
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +12,7 @@
 |
 */
 
+Route::get('/ganaderia', [GanaderiaController::class, 'index'])->name('ganaderias');
 //Route::get('/{any}', function () {
 //    return view('coreui.homepage');
 //})->where('any', '.*');

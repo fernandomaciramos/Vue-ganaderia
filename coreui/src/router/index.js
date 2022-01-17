@@ -60,6 +60,26 @@ const User = () => import('@/views/users/User')
 const EditUser = () => import('@/views/users/EditUser')
 const CreateUser = () => import('@/views/users/CreateUser')
 // const PruebaUser = () => import('@/views/users/PruebaUser')
+// Ganaderos
+const Ganaderias = () => import('@/views/ganaderias/Ganaderias')
+const CreateGanaderia = () => import('@/views/ganaderias/CreateGanaderia')
+const EditGanaderia = () => import('@/views/ganaderias/EditGanaderia')
+const Ganaderia = () => import('@/views/ganaderias/Ganaderia')
+// Ganado
+const Ganados = () => import('@/views/ganados/Ganados')
+const Ganado = () => import('@/views/ganados/Ganado')
+const EditGanado = () => import('@/views/ganados/EditGanado')
+const CreateGanado = () => import('@/views/ganados/CreateGanado') 
+//Diagnosticar
+const CreateDiagnostico = () => import('@/views/diagnosticos/CreateDiagnostico')
+const Diagnosticos = () => import('@/views/diagnosticos/Diagnosticos')
+const EditDiagnostico = () => import('@/views/diagnosticos/EditDiagnostico')
+//Qrs
+const Qrs = () => import('@/views/qr/Qrs')
+const Datosqr = () => import('@/views/qr/Datosqr')
+//Correos
+const Correos = () => import('@/views/correos/Correos')
+
 //Notes
 const Notes = () => import('@/views/notes/Notes')
 const Note = () => import('@/views/notes/Note')
@@ -310,15 +330,6 @@ function configRoutes () {
               }
             },
             {
-              path: ':id',
-              meta: { label: 'User Details'},
-              name: 'User',
-              component: User,
-              meta:{
-                requiresAdmin: true
-              }
-            },
-            {
               path: 'create',
               meta: { label: 'Create User' },
               name: 'Create User',
@@ -327,6 +338,16 @@ function configRoutes () {
                 requiresAdmin: true
               }
             },
+            {
+              path: ':id',
+              meta: { label: 'User Details'},
+              name: 'User',
+              component: User,
+              meta:{
+                requiresAdmin: true
+              }
+            },
+            
             {
               path: ':id/edit',
               meta: { label: 'Edit User' },
@@ -339,6 +360,208 @@ function configRoutes () {
             
           ]
         },
+        {
+          path: 'ganaderias',
+          meta: { label: 'Ganaderias'},
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '',
+              component: Ganaderias,
+              meta:{
+                // requiresAdmin: true,  
+                requiresUser: true,
+              }
+            },
+            {
+              path: 'create',
+              meta: { label: 'Create Ganaderia' },
+              name: 'Create Ganaderia',
+              component: CreateGanaderia,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id',
+              meta: { label: 'Ganaderia Details'},
+              name: 'Ganaderia',
+              component: Ganaderia,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            
+            // {
+            //   path: 'create',
+            //   meta: { label: 'Create Ganaderia' },
+            //   name: 'Create Ganaderia',
+            //   component: CreateGanaderia,
+            //   meta:{
+            //     requiresAdmin: true
+            //   }
+            // },
+            {
+              path: ':id/edit',
+              meta: { label: 'Edit Ganaderia' },
+              name: 'Edit Ganaderia',
+              component: EditGanaderia, //si pongo edit ganaderia explota
+              meta:{
+                requiresUser: true,
+              }
+            },
+            
+          ]
+        },
+
+        {
+          path: 'ganados',
+          meta: { label: 'Ganado'},
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '',
+              component: Ganados,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/create',
+              meta: { label: 'Create Ganado' },
+              name: 'Create Ganado',
+              component: CreateGanado,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id',
+              meta: { label: 'Ganado Details'},
+              name: 'Ganado',
+              component: Ganado,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/edit',
+              meta: { label: 'Edit Ganado' },
+              name: 'Edit Ganado',
+              component: EditGanado, //si pongo edit ganaderia explota
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/creatediagnostico',
+              meta: { label: 'Create Diagnostico' },
+              name: 'Create Diagnostico',
+              component: CreateDiagnostico,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/diagnosticos',
+              meta: { label: 'Diagnosticos' },
+              name: 'Diagnosticos',
+              component: Diagnosticos,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/editdiagnostico/:id',
+              meta: { label: 'Edit Diagnostico' },
+              name: 'Edit Diagnostico',
+              component: EditDiagnostico, //si pongo edit ganaderia explota
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/qrs',
+              meta: { label: 'Qrs' },
+              name: 'Qrs',
+              component: Qrs,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id/datosqr',
+              meta: { label: 'Datosqr' },
+              name: 'Datosqr',
+              component: Datosqr,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            
+          ]
+        },
+        //correos
+        {
+          path: 'correos',
+          meta: { label: 'Correos'},
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: '',
+              component: Correos,
+              meta:{
+                // requiresAdmin: true,  
+                requiresUser: true,
+              }
+            },
+            {
+              path: 'create',
+              meta: { label: 'Create Ganaderia' },
+              name: 'Create Ganaderia',
+              component: CreateGanaderia,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            {
+              path: ':id',
+              meta: { label: 'Ganaderia Details'},
+              name: 'Ganaderia',
+              component: Ganaderia,
+              meta:{
+                requiresUser: true,
+              }
+            },
+            
+            // {
+            //   path: 'create',
+            //   meta: { label: 'Create Ganaderia' },
+            //   name: 'Create Ganaderia',
+            //   component: CreateGanaderia,
+            //   meta:{
+            //     requiresAdmin: true
+            //   }
+            // },
+            {
+              path: ':id/edit',
+              meta: { label: 'Edit Ganaderia' },
+              name: 'Edit Ganaderia',
+              component: EditGanaderia, //si pongo edit ganaderia explota
+              meta:{
+                requiresUser: true,
+              }
+            },
+            
+          ]
+        },
+
         {
           path: 'notes',
           meta: { label: 'Notes'},

@@ -4,7 +4,7 @@
       <CCard no-header>
         <CCardBody>
           <h3>
-            Añadir Role
+            Añadir Ganaderia
           </h3>
           <CAlert
             :show.sync="dismissCountDown"
@@ -14,10 +14,14 @@
             ({{dismissCountDown}}) {{ message }}
           </CAlert>
 
-          <CInput label="Name" type="text" placeholder="Name" v-model="role.name"></CInput>
-
-          <CButton color="primary" @click="store()">Create</CButton>
-          <CButton color="primary" @click="goBack">Back</CButton>
+          <CInput label="Nombre" type="text" placeholder="Name" v-model="ganaderia.name" valid-feedback="Thank you :)"
+                invalid-feedback="Campo vacío no válido"
+                :is-valid="validatorvacio"></CInput> 
+          <CInput label="Email" type="text" placeholder="Email" v-model="ganaderia.email" valid-feedback="Thank you :)"
+                invalid-feedback="Introduce un e-mail"
+                :is-valid="validateEmail"></CInput>
+          <CButton color="primary" @click="store()">Crear</CButton>
+          <CButton color="primary" @click="goBack">Volver</CButton>
         </CCardBody>
       </CCard>
     </CCol>
@@ -27,7 +31,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'CreateRole',
+  name: 'CreateGanaderia',
   /*
   props: {
     caption: {
@@ -38,8 +42,9 @@ export default {
   */
   data: () => {
     return {
-        role: {
+        ganaderia: {
           name: '',
+          email:'',
         },
         message: '',
         dismissSecs: 7,
@@ -48,15 +53,27 @@ export default {
     }
   },
   methods: {
+    validatorvacio (val){
+      return val ? val.length >= 1: false
+    },
+    validateEmail(val) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val)) {
+          return true;
+      } else {
+          return false;
+      }
+    },
     goBack() {
       this.$router.go(-1)
       // this.$router.replace({path: '/users'})
     },
     store() {
         let self = this;
-        axios.post(  this.$apiAdress + '/api/roles?token=' + localStorage.getItem("api_token"),
+        console.log(self);
+        axios.post(  this.$apiAdress + '/api/ganaderias?token=' + localStorage.getItem("api_token"),
           {
-            name: self.role.name,
+            name: self.ganaderia.name,
+            email: self.ganaderia.email,
           }
         )
         .then(function (response) {
@@ -67,9 +84,10 @@ export default {
               status_id: null,
               note_type: '',
             };
-            self.message = 'Successfully created role.';
+            self.message = 'Successfully created ganaderia.';
             self.showAlert();
         }).catch(function (error) {
+            console.log('estoy catch del create');
             if(error.response.data.message == 'The given data was invalid.'){
               self.message = '';
               for (let key in error.response.data.errors) {
@@ -80,6 +98,7 @@ export default {
               self.showAlert();
             }else{
               console.log(error);
+              console.log('estoy en el else del catch');
               self.$router.push({ path: 'login' }); 
             }
         });
@@ -93,11 +112,12 @@ export default {
   },
   mounted: function(){
     let self = this;
-    axios.get(  this.$apiAdress + '/api/roles/create?token=' + localStorage.getItem("api_token"))
+    axios.get(  this.$apiAdress + '/api/ganaderias/store?token=' + localStorage.getItem("api_token"))
     .then(function (response) {
         self.statuses = response.data;
     }).catch(function (error) {
         console.log(error);
+        console.log('store dentro del catch');
         self.$router.push({ path: 'login' });
     });
   }

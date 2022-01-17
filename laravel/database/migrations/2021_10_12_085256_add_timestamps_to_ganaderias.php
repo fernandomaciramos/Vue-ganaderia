@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGanaderiaTable extends Migration
+class AddTimestampsToGanaderias extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateGanaderiaTable extends Migration
      */
     public function up()
     {
-        Schema::create('ganaderia', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('ganaderias', function (Blueprint $table) {
+            //
         });
     }
 
@@ -26,6 +25,8 @@ class CreateGanaderiaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ganaderia');
+        Schema::table('ganaderias', function (Blueprint $table) {
+            //
+        });
     }
 }

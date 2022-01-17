@@ -1,3 +1,6 @@
+si borramos aqui se quita la burbuja de la carita nos interesa
+
+
 <template>
   <CDropdown
     inNav

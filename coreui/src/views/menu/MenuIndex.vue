@@ -73,7 +73,7 @@ export default {
         self.items = response.data.menulist;
       }).catch(function (error) {
         console.log(error);
-        self.$router.push({ path: '/login' });
+        // self.$router.push({ path: '/login' });
       });
     }
   },

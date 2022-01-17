@@ -22,8 +22,13 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('register', 'AuthController@register'); 
 
     Route::resource('notes', 'NotesController');
-
+    Route::resource('ganaderias', 'GanaderiaController');
+    Route::resource('ganados', 'GanadoController');
+    Route::resource('diagnosticos', 'DiagnosticoController');
     Route::resource('resource/{table}/resource', 'ResourceController');
+    // Route::group(['middleware' => 'user'], function ($router) {
+    //     Route::resource('ganaderias', 'GanaderiaController');
+    // });
     
     Route::group(['middleware' => 'admin'], function ($router) {
 
@@ -34,7 +39,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
 
         Route::resource('users', 'UsersController')->except( ['create', 'store'] );
-
+        // console.log("estamos en api php");
+        
+        // Route::get('/ganaderia', [GanaderiaController::class, 'index'])->name('ganaderias');
+        //si le pongo solo el get explota
         Route::prefix('menu/menu')->group(function () { 
             Route::get('/',         'MenuEditController@index')->name('menu.menu.index');
             Route::get('/create',   'MenuEditController@create')->name('menu.menu.create');

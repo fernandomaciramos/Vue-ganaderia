@@ -27,6 +27,8 @@ class Menus implements MenuInterface{
         $this->mb->addLink('Dashboard', '/', 'cui-speedometer');
         $this->mb->addTitle('Theme');
         $this->mb->addLink('Colors', '/colors', 'cui-drop1');
+        // console.log("prueba");
+        $this->mb->addLink('Ganaderias', '/ganaderias', 'cui-drop1');
         $this->mb->addLink('Typography', '/typography', 'cui-pencil');
         $this->mb->addTitle('Components');
         $this->mb->beginDropdown('Base', '/base', 'cui-puzzle');
